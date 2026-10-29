@@ -2216,3 +2216,51 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .ts-celebration__backdrop, .ts-celebration__message, .ts-confetti__piece { animation: none; }
 }
+
+/* Shared transparent blue glass surface */
+.glass, .ts-glass, .ts-event-banner, .ts-hero-card, .ts-info-card, .ts-showcase-booth-card,
+.ts-qualification-banner, .ts-passport-stats-grid, .ts-booth-card, .ts-question-card,
+.ts-score-card, .ts-milestone-card, .ts-already-summary, .ts-modal-card, .ts-scanner-modal,
+.ts-participant-card, .ts-topic-card, .ts-topics-header, .ts-topics-rotation-banner,
+.ts-sync-destination-card {
+  background: linear-gradient(145deg, rgba(96,139,255,.24), rgba(28,41,89,.38));
+  border-color: rgba(191,211,255,.34);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 18px 44px rgba(0,0,0,.34), 0 0 32px rgba(56,94,210,.08);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+
+.ts-hero-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 0;
+  padding: clamp(18px, 4vw, 30px);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(105,157,255,.28), transparent 44%),
+    linear-gradient(145deg, rgba(111,151,255,.27), rgba(19,27,64,.5));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.36), 0 24px 58px rgba(0,0,0,.42), 0 0 42px rgba(60,102,235,.15);
+}
+.ts-hero-card::before { content: ''; position: absolute; inset: 1px; z-index: -1; border-radius: 27px; background: linear-gradient(120deg, rgba(255,255,255,.06), transparent 45%, rgba(104,154,255,.1)); pointer-events: none; }
+.ts-hero-content { gap: 16px; }
+.ts-hero-copy { gap: 10px; }
+.ts-hero-eyebrow { color: #a9c8ff; background: rgba(112,161,255,.15); border-color: rgba(184,214,255,.34); box-shadow: inset 0 1px 0 rgba(255,255,255,.2); }
+.ts-hero-title { letter-spacing: -.045em; text-shadow: 0 3px 22px rgba(0,0,0,.3); }
+.ts-gradient-text { background: linear-gradient(100deg, #8ed6ff, #c5b8ff 52%, #ff94c5); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ts-hero-description { color: #d0d9f5; max-width: 610px; }
+.ts-hero-art { filter: saturate(.85) drop-shadow(0 10px 24px rgba(88,135,255,.24)); opacity: .9; }
+.ts-hero-primary-btn { box-shadow: 0 13px 30px rgba(255,60,126,.3), inset 0 1px 0 rgba(255,255,255,.52); }
+.ts-hero-passport-link, .ts-hero-rules-link { color: #a9c8ff; }
+.ts-hero-passport-link:hover, .ts-hero-rules-link:hover { color: #fff; }
+.ts-info-card { background: linear-gradient(145deg, rgba(94,138,255,.2), rgba(29,40,83,.34)); }
+.ts-showcase-booth-card:hover, .ts-booth-card[role="button"]:hover { border-color: rgba(157,199,255,.72); background: linear-gradient(145deg, rgba(112,161,255,.3), rgba(39,51,103,.42)); box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 18px 42px rgba(26,54,138,.34); }
+.ts-showcase-view-all { background: rgba(113,163,255,.14); border-color: rgba(182,211,255,.32); color: #bcd5ff; }
+.ts-hero-scanned-card { background: rgba(99,151,255,.2); border-color: rgba(190,219,255,.42); }
+.ts-hero-scanned-label, .ts-showcase-booth-card__num { color: #a9c8ff; }
+
+@media (max-width: 767px) {
+  .ts-hero-card { border-radius: 24px; padding: 18px 16px; }
+  .ts-hero-title { font-size: clamp(34px, 10vw, 48px); }
+  .ts-hero-description { font-size: 13px; }
+}
