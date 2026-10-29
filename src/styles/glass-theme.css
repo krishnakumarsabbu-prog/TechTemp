@@ -1929,3 +1929,122 @@ button, .ts-btn, .ts-hero-primary-btn, .ts-showcase-booth-card, .ts-booth-card, 
     }
   }
 }
+
+/* =========================================================
+   17. LIGHT SUMMIT PASSPORT THEME
+   ========================================================= */
+:root {
+  --bg: linear-gradient(155deg, #dce7ff 0%, #eef0ff 34%, #fbd6ee 72%, #d2f4e9 100%);
+  --ink: #101a36;
+  --ink2: #4d5a7e;
+  --gold: #bf461a;
+  --ga: rgba(255, 255, 255, 0.58);
+  --gb: rgba(255, 255, 255, 0.28);
+  --bd: rgba(255, 255, 255, 0.82);
+  --sh: rgba(67, 78, 130, 0.14);
+  --b1: #93adff;
+  --b2: #f7a8d0;
+  --b3: #9de3d1;
+  --nav: rgba(255, 255, 255, 0.72);
+  --ok: #08796d;
+  --okbg: rgba(97, 220, 201, 0.3);
+  --okbd: rgba(38, 173, 160, 0.65);
+  --trk: rgba(77, 90, 126, 0.18);
+  --accent-a: #ff934c;
+  --accent-b: #ff3c7e;
+  --brand-primary: #ff3c7e;
+  --border: rgba(255, 255, 255, 0.82);
+  --text-primary: #101a36;
+  --text-secondary: #4d5a7e;
+  --surface: rgba(255, 255, 255, 0.58);
+  --error: #c63852;
+  --error-bg: rgba(255, 112, 137, 0.18);
+  --error-bd: rgba(198, 56, 82, 0.5);
+}
+
+html, body {
+  background:
+    radial-gradient(circle at 86% 4%, rgba(124, 154, 255, 0.54) 0, transparent 35%),
+    radial-gradient(circle at 8% 54%, rgba(255, 183, 220, 0.48) 0, transparent 40%),
+    radial-gradient(circle at 90% 88%, rgba(126, 220, 198, 0.5) 0, transparent 32%),
+    linear-gradient(155deg, #dce7ff 0%, #f1efff 45%, #f8d7ec 76%, #d2f4e9 100%);
+  color: var(--ink);
+}
+
+.ts-bg-blobs { opacity: .38; }
+.ts-blob { filter: blur(90px); }
+.ts-page { padding-top: max(24px, env(safe-area-inset-top)); }
+.ts-page--welcome { padding-top: max(16px, env(safe-area-inset-top)); }
+.ts-page__title, .ts-page__title--sm, .ts-hero-title, .ts-showcase-section__title,
+.ts-passport-user-name, .ts-qualification-title, .ts-matrix-title, .ts-topic-card__title,
+.ts-question-card__text, .ts-score-card__message, .ts-milestone-title, .ts-modal-title { color: var(--ink); }
+.ts-page__description, .ts-topic-card__desc, .ts-rotation-desc, .ts-milestone-desc,
+.ts-page__footer, .ts-matrix-subtitle, .ts-passport-user-email, .ts-quiz-count-pill,
+.ts-score-card__disclaimer, .ts-already-summary__row, .ts-modal-content { color: var(--ink2); }
+.ts-gradient-text { background: linear-gradient(90deg, #ff9249, #ff3c7e); }
+
+.glass, .ts-glass, .ts-event-banner, .ts-hero-card, .ts-info-card, .ts-showcase-booth-card,
+.ts-qualification-banner, .ts-passport-stats-grid, .ts-booth-card, .ts-question-card,
+.ts-score-card, .ts-milestone-card, .ts-already-summary, .ts-modal-card, .ts-scanner-modal,
+.ts-participant-card, .ts-topic-card, .ts-topics-header, .ts-topics-rotation-banner,
+.ts-sync-destination-card {
+  background: linear-gradient(135deg, rgba(255,255,255,.68), rgba(255,255,255,.34));
+  border-color: rgba(255,255,255,.9);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.95), 0 12px 30px var(--sh);
+}
+
+.ts-header { background: rgba(255,255,255,.68); border-bottom-color: rgba(255,255,255,.86); box-shadow: 0 4px 18px rgba(74,85,145,.1); }
+.ts-header__badge, .ts-header__passport-btn, .ts-passport-edit-btn, .ts-passport-scan-qr-btn,
+.ts-showcase-view-all, .ts-btn--secondary, .ts-mobile-nav__item, .ts-qualification-pill, .ts-timer { color: var(--ink); }
+.ts-header__badge { background: rgba(255,255,255,.4); }
+.ts-header__passport-btn, .ts-passport-edit-btn, .ts-passport-scan-qr-btn { background: rgba(255,255,255,.62); border-color: rgba(255,255,255,.95); box-shadow: 0 4px 12px rgba(80,90,140,.12); }
+.ts-header__passport-btn:hover, .ts-passport-edit-btn:hover, .ts-passport-scan-qr-btn:hover { background: rgba(255,255,255,.9); color: var(--ink); }
+
+.ts-hero-card { color: var(--ink); }
+.ts-hero-eyebrow, .ts-showcase-view-all, .ts-header__badge, .ts-qualification-pill, .ts-topic-card__index,
+.ts-topics-badge, .ts-quiz-booth-pill, .ts-results-booth-pill, .ts-restriction-badge { color: var(--gold); }
+.ts-hero-primary-btn, .ts-btn--primary { background: linear-gradient(135deg, #ff944d, #ff3e7e); color: #fff; box-shadow: inset 0 1.5px 0 rgba(255,255,255,.72), 0 9px 22px rgba(255,70,124,.3); }
+.ts-hero-passport-link, .ts-hero-rules-link { color: #c44719; }
+.ts-hero-scanned-icon, .ts-showcase-booth-card__icon, .ts-booth-card__icon { background: linear-gradient(135deg, rgba(255,161,109,.34), rgba(255,91,143,.24)); border-color: rgba(255,255,255,.8); color: #ff3c7e; }
+.ts-info-card__value, .ts-stat-card__number, .ts-score-card__percentage { color: var(--ink); }
+.ts-info-card__label, .ts-stat-card__label { color: var(--ink2); }
+
+.ts-qualification-banner--progress, .ts-score-card, .ts-milestone-card--progress { background: linear-gradient(135deg, rgba(255,255,255,.66), rgba(238,233,255,.48)); border-color: rgba(255,255,255,.9); }
+.ts-qualification-banner--winner, .ts-milestone-card--winner { background: linear-gradient(135deg, rgba(255,207,152,.6), rgba(255,154,196,.42)); border-color: rgba(255,123,154,.7); }
+.ts-qualification-title, .ts-milestone-title { color: var(--ink); }
+.ts-qualification-desc { color: var(--ink2); }
+.ts-passport-progress-bar, .ts-progress-bar { background: var(--trk); }
+.ts-passport-progress-fill, .ts-progress-bar__fill { background: linear-gradient(90deg, #ff934c, #ff3c7e); box-shadow: 0 0 10px rgba(255,76,126,.25); }
+.ts-stat-cell--tl, .ts-stat-cell--tr, .ts-stat-cell--bl { border-color: rgba(255,255,255,.82); }
+
+.ts-booth-card, .ts-showcase-booth-card, .ts-topic-card, .ts-option { color: var(--ink); background: linear-gradient(135deg, rgba(255,255,255,.66), rgba(255,255,255,.3)); }
+.ts-booth-card__title, .ts-showcase-booth-card__title, .ts-topic-card__title, .ts-option__text { color: var(--ink); }
+.ts-booth-card__desc, .ts-showcase-booth-card__desc { color: var(--ink2); }
+.ts-pill-todo { background: rgba(255,255,255,.55); border-color: rgba(255,255,255,.85); color: var(--ink); }
+.ts-pill-done { color: var(--ok); background: var(--okbg); border-color: var(--okbd); }
+.ts-booth-card--completed, .ts-showcase-booth-card--active { border-color: var(--okbd); }
+.ts-option { border-color: rgba(255,255,255,.9); box-shadow: 0 5px 14px rgba(72,82,135,.1); }
+.ts-option:hover { background: rgba(255,255,255,.8); border-color: #ff6a92; }
+.ts-option--selected { border-color: #ff3c7e !important; background: rgba(255,190,217,.38); box-shadow: 0 0 0 2px rgba(255,60,126,.18); }
+.ts-option__letter { color: #c44719; background: rgba(255,255,255,.58); border-color: rgba(255,255,255,.9); }
+.ts-option--selected .ts-option__letter { background: linear-gradient(135deg, #ff934c, #ff3c7e); color: #fff; }
+.ts-option__radio-indicator { color: #ff3c7e; }
+
+.ts-field__label { color: var(--ink); }
+.ts-field__input { background: rgba(255,255,255,.62); border-color: rgba(255,255,255,.92); color: var(--ink); box-shadow: inset 0 1px 4px rgba(75,85,130,.08); }
+.ts-field__input::placeholder { color: #7b86a4; }
+.ts-field__input:focus { background: rgba(255,255,255,.86); border-color: #ff5b8c; box-shadow: 0 0 0 3px rgba(255,91,140,.16); color: var(--ink); }
+.ts-field__error { color: #bd3753; }
+
+.ts-mobile-nav { background: var(--nav); border-color: rgba(255,255,255,.9); box-shadow: inset 0 1.5px 0 rgba(255,255,255,.95), 0 12px 28px rgba(75,85,135,.16); }
+.ts-mobile-nav__item { color: #4d5a7e; }
+.ts-mobile-nav__item--active { color: #ff3c7e; }
+.ts-mobile-nav__passport-bubble { background: linear-gradient(135deg, #ff934c, #ff3c7e); box-shadow: 0 8px 18px rgba(255,60,126,.35); }
+
+.ts-modal-overlay { background: rgba(75,81,130,.24); }
+.ts-modal-close-btn, .ts-modal-header__icon-badge { background: rgba(255,255,255,.62); border-color: rgba(255,255,255,.9); color: var(--ink); }
+.ts-modal-content h3, .ts-modal-title { color: var(--ink); }
+.ts-scanner-toast { background: rgba(255,255,255,.9); border-color: #ff5c8e; color: var(--ink); }
+.ts-error-message { color: #bd3753; }
+
+@media (min-width: 768px) { .ts-layout__main { max-width: 720px; } .ts-page { padding-left: 24px; padding-right: 24px; } }
