@@ -1,0 +1,1931 @@
+/**
+ * Liquid Glass – Dark Theme
+ * Precise implementation of Liquid Glass – Dark design mockups.
+ * Mobile-first (360px - 430px) with centered 720px max-width on >=768px.
+ */
+
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
+:root {
+  --bg: linear-gradient(160deg, #0B1020 0%, #141B3F 55%, #1B1146 100%);
+  --ink: #FFFFFF;
+  --ink2: #C7CFEE;
+  --gold: #FFC27A;
+  --ga: rgba(255, 255, 255, 0.17);
+  --gb: rgba(255, 255, 255, 0.05);
+  --bd: rgba(255, 255, 255, 0.28);
+  --sh: rgba(0, 0, 0, 0.45);
+  --b1: #5B6CFF;
+  --b2: #FF4D9D;
+  --b3: #22D3C5;
+  --nav: rgba(24, 30, 66, 0.72);
+  --ok: #B8FFE9;
+  --okbg: rgba(60, 220, 180, 0.28);
+  --okbd: rgba(120, 255, 220, 0.7);
+  --trk: rgba(255, 255, 255, 0.18);
+  --accent-a: #FF9A4D;
+  --accent-b: #FF4081;
+  --gutter: 16px;
+  --r-card: 24px;
+  --r-inner: 18px;
+  --r-pill: 999px;
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Aliases for components and compatibility */
+  --brand-primary: var(--accent-b);
+  --border: var(--bd);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink2);
+  --surface: var(--ga);
+  --error: #FF5E7E;
+  --error-bg: rgba(255, 77, 100, 0.25);
+  --error-bd: rgba(255, 120, 140, 0.7);
+}
+
+/* =========================================================
+   2. BASE & RESET
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  background-attachment: fixed;
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-b);
+  outline-offset: 2px;
+}
+
+button, .ts-btn, .ts-hero-primary-btn, .ts-showcase-booth-card, .ts-booth-card, .ts-mobile-nav__item, .ts-option {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 3 Decorative background glow blobs */
+.ts-bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ts-blob {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(75px);
+  will-change: transform;
+}
+
+.ts-blob--top-right {
+  top: -40px;
+  right: -50px;
+  background: var(--b1);
+  opacity: 0.85;
+}
+
+.ts-blob--mid-left {
+  top: 35%;
+  left: -80px;
+  background: var(--b2);
+  opacity: 0.7;
+}
+
+.ts-blob--bottom-right {
+  bottom: 40px;
+  right: -50px;
+  background: var(--b3);
+  opacity: 0.7;
+}
+
+/* =========================================================
+   3. GLASS SURFACES
+   ========================================================= */
+.glass,
+.ts-glass,
+.ts-event-banner,
+.ts-hero-card,
+.ts-info-card,
+.ts-showcase-booth-card,
+.ts-qualification-banner,
+.ts-passport-stats-grid,
+.ts-booth-card,
+.ts-question-card,
+.ts-score-card,
+.ts-milestone-card,
+.ts-already-summary,
+.ts-modal-card,
+.ts-scanner-modal,
+.ts-participant-card,
+.ts-topic-card,
+.ts-topics-header,
+.ts-topics-rotation-banner,
+.ts-sync-destination-card {
+  background: linear-gradient(135deg, var(--ga), var(--gb));
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 10px 28px var(--sh);
+  box-sizing: border-box;
+}
+
+/* Performance: repeated booth cards use blur(10px) only */
+.ts-showcase-booth-card,
+.ts-booth-card {
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+}
+
+/* Fallbacks for no backdrop-filter and reduced transparency */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass, .ts-glass, .ts-event-banner, .ts-hero-card, .ts-info-card,
+  .ts-showcase-booth-card, .ts-qualification-banner, .ts-passport-stats-grid,
+  .ts-booth-card, .ts-question-card, .ts-score-card, .ts-milestone-card,
+  .ts-already-summary, .ts-modal-card, .ts-scanner-modal, .ts-participant-card,
+  .ts-topic-card, .ts-topics-header, .ts-topics-rotation-banner, .ts-mobile-nav,
+  .ts-hero-scanned-card {
+    background: rgba(30, 38, 80, 0.92);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass, .ts-glass, .ts-event-banner, .ts-hero-card, .ts-info-card,
+  .ts-showcase-booth-card, .ts-qualification-banner, .ts-passport-stats-grid,
+  .ts-booth-card, .ts-question-card, .ts-score-card, .ts-milestone-card,
+  .ts-already-summary, .ts-modal-card, .ts-scanner-modal, .ts-participant-card,
+  .ts-topic-card, .ts-topics-header, .ts-topics-rotation-banner, .ts-mobile-nav,
+  .ts-hero-scanned-card {
+    background: rgba(30, 38, 80, 0.92);
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* =========================================================
+   4. SINGLE GUTTER RULE & LAYOUT
+   ========================================================= */
+.ts-layout {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ts-layout__main {
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.ts-page {
+  width: 100%;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-top: calc(54px + env(safe-area-inset-top));
+  padding-bottom: calc(116px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.ts-page--welcome {
+  padding-top: max(16px, env(safe-area-inset-top));
+}
+
+.ts-page__container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.ts-page--passport .ts-page__container {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* =========================================================
+   5. TYPOGRAPHY UTILITIES
+   ========================================================= */
+.ts-gradient-text {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline;
+}
+
+.ts-page__title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.ts-page__title--sm {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.ts-page__description {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink2);
+  margin: 0 0 16px 0;
+}
+
+/* =========================================================
+   6. HEADER BAR (on quiz / result screens)
+   ========================================================= */
+.ts-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 8px max(16px, env(safe-area-inset-left));
+  margin-bottom: 8px;
+}
+
+.ts-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.ts-header__badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: var(--ga);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--bd);
+}
+
+.ts-header__passport-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--sh);
+}
+
+.ts-header__passport-btn--winner {
+  border-color: var(--okbd);
+  color: var(--ok);
+}
+
+.ts-header__passport-text--compact {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .ts-header__passport-text--full {
+    display: none;
+  }
+  .ts-header__passport-text--compact {
+    display: inline;
+  }
+}
+
+/* =========================================================
+   7. HOME SCREEN: BANNER, HERO, INFO, BOOTHS
+   ========================================================= */
+
+/* 1. Event Banner */
+.ts-event-banner {
+  padding: 12px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.ts-event-banner__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/* 2. Hero Card */
+.ts-hero-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.ts-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.ts-hero-eyebrow__icon {
+  color: var(--gold);
+}
+
+.ts-hero-title {
+  font-size: 30px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+  max-width: 100%;
+}
+
+.ts-hero-description {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink2);
+  margin: 0;
+}
+
+/* Remove decorative mesh and SVG from mobile hero */
+@media (max-width: 767px) {
+  .ts-hero-art,
+  .ts-hero-card__orb,
+  .ts-hero-card__glow-mesh {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .ts-hero-art {
+    display: none;
+  }
+}
+
+/* Scanned-booth card inside hero */
+.ts-hero-scanned-card {
+  background: linear-gradient(135deg, var(--ga), var(--gb));
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-inner);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 8px 20px var(--sh);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.ts-hero-scanned-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 154, 77, 0.35), rgba(255, 64, 129, 0.25));
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF4081;
+  flex-shrink: 0;
+}
+
+.ts-hero-scanned-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ts-hero-scanned-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.ts-hero-scanned-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* Hero CTA group */
+.ts-hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.ts-hero-primary-btn {
+  width: 100%;
+  height: 52px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.6), 0 8px 20px rgba(255, 64, 129, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 180ms ease;
+  font-family: var(--font);
+}
+
+.ts-hero-primary-btn:active {
+  transform: scale(0.98);
+}
+
+.ts-hero-passport-link,
+.ts-hero-rules-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font);
+  padding: 0;
+}
+
+/* 3. Info Cards */
+.ts-info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.ts-info-card {
+  padding: 16px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-info-card__value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.ts-info-card__label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--ink2);
+  text-transform: uppercase;
+}
+
+/* 4. Section Header */
+.ts-showcase-section {
+  margin-bottom: 14px;
+}
+
+.ts-showcase-section__heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ts-showcase-section__title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ts-showcase-view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 5px 14px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 2px 8px var(--sh);
+}
+
+/* Booths List (Mobile single column) */
+.ts-showcase-booths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .ts-showcase-booths-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ts-showcase-booths-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ts-showcase-booth-card {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: var(--r-card);
+  cursor: pointer;
+  position: relative;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.ts-showcase-booth-card:active {
+  transform: scale(0.98);
+}
+
+.ts-showcase-booth-card--active {
+  border-color: var(--okbd);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 0 16px rgba(120, 255, 220, 0.3);
+}
+
+.ts-showcase-booth-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 154, 77, 0.35), rgba(255, 64, 129, 0.25));
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF4081;
+  flex-shrink: 0;
+}
+
+.ts-showcase-booth-card__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-showcase-booth-card__num {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ts-showcase-booth-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ts-showcase-booth-card__desc {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ts-showcase-booth-card__desc {
+    display: block;
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.4;
+    margin: 4px 0 0 0;
+  }
+}
+
+.ts-booth-scanned-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ok);
+  background: var(--okbg);
+  border: 1px solid var(--okbd);
+  border-radius: var(--r-pill);
+  padding: 3px 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.ts-showcase-booth-card__arrow {
+  color: var(--ink2);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Bottom welcome actions & footer */
+.ts-welcome-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 599px) {
+  .ts-welcome-actions {
+    display: none;
+  }
+}
+
+.ts-page__footer {
+  font-size: 12px;
+  color: var(--ink2);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   8. PASSPORT SCREEN
+   ========================================================= */
+
+/* Profile Header Row */
+.ts-passport-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.ts-passport-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ga), var(--gb));
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--bd);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 8px 20px var(--sh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.ts-passport-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ts-passport-badge-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  display: block;
+}
+
+.ts-passport-user-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 2px 0;
+  line-height: 1.15;
+}
+
+.ts-passport-user-email {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink2);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.ts-passport-edit-btn {
+  margin-left: auto;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--sh);
+  font-family: var(--font);
+}
+
+/* Challenge Progress Card */
+.ts-qualification-banner {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ts-qualification-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ts-qualification-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ts-qualification-pill {
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ts-qualification-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink2);
+  margin: 0;
+}
+
+.ts-passport-progress-bar-wrap {
+  width: 100%;
+}
+
+.ts-passport-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--trk);
+  overflow: hidden;
+}
+
+.ts-passport-progress-fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  transition: width 400ms ease;
+}
+
+.ts-passport-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  margin-top: 8px;
+}
+
+/* Stats: ONE .glass card with 2x2 grid & hairline dividers (no seams) */
+.ts-passport-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 18px;
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.ts-stat-cell {
+  padding: 16px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-stat-cell--tl {
+  border-right: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+}
+
+.ts-stat-cell--tr {
+  border-bottom: 1px solid var(--bd);
+}
+
+.ts-stat-cell--bl {
+  border-right: 1px solid var(--bd);
+}
+
+.ts-stat-cell--br {
+  /* No divider on bottom-right cell */
+}
+
+.ts-stat-card__number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.ts-stat-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink2);
+  text-transform: uppercase;
+}
+
+/* Booth Status Section */
+.ts-booths-matrix-section {
+  margin-bottom: 14px;
+}
+
+.ts-matrix-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ts-matrix-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ts-matrix-subtitle {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink2);
+  display: block;
+}
+
+.ts-passport-scan-qr-btn {
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 9px 14px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--sh);
+  font-family: var(--font);
+}
+
+/* Passport Booth Rows */
+.ts-booths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ts-booth-card {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: var(--r-card);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  position: relative;
+}
+
+.ts-booth-card[role="button"] {
+  cursor: pointer;
+}
+
+.ts-booth-card[role="button"]:active {
+  transform: scale(0.98);
+}
+
+.ts-booth-card--completed {
+  border-color: var(--okbd);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 0 16px rgba(120, 255, 220, 0.22);
+}
+
+.ts-booth-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 154, 77, 0.35), rgba(255, 64, 129, 0.25));
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF4081;
+  flex-shrink: 0;
+}
+
+.ts-booth-card__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-booth-card__header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.ts-booth-card__number {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ts-booth-card__status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ts-pill-done {
+  background: var(--okbg);
+  border: 1px solid var(--okbd);
+  color: var(--ok);
+}
+
+.ts-pill-todo {
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  color: var(--ink2);
+}
+
+.ts-booth-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.ts-booth-card__stats-line {
+  font-size: 12px;
+  color: var(--ink2);
+  margin-top: 2px;
+}
+
+.ts-booth-card__desc {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ts-booth-card__desc {
+    display: block;
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.4;
+    margin: 4px 0 0 0;
+  }
+}
+
+.ts-passport-actions {
+  margin-top: 16px;
+}
+
+/* =========================================================
+   9. FLOATING NAV (.ts-mobile-nav)
+   ========================================================= */
+.ts-mobile-nav {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  height: 68px;
+  border-radius: var(--r-pill);
+  background: var(--nav);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--bd);
+  box-shadow: inset 0 1.5px 0 var(--bd), 0 10px 28px var(--sh);
+  z-index: 50;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 6px;
+  max-width: calc(720px - 32px);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.ts-mobile-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--ink2);
+  width: 64px;
+  min-height: 44px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 180ms ease, transform 180ms ease;
+  font-family: var(--font);
+}
+
+.ts-mobile-nav__item:active {
+  transform: scale(0.92);
+}
+
+.ts-mobile-nav__item--active {
+  color: var(--accent-b);
+}
+
+.ts-mobile-nav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-mobile-nav__item small {
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 3px;
+  color: inherit;
+}
+
+/* Middle raised Passport button */
+.ts-mobile-nav__item--passport {
+  position: relative;
+  width: 56px;
+  padding: 0;
+}
+
+.ts-mobile-nav__passport-bubble {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+  border: 2px solid #FFFFFF;
+  margin-top: -30px;
+  box-shadow: 0 8px 18px rgba(255, 64, 129, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  transition: transform 180ms ease;
+}
+
+.ts-mobile-nav__item--passport:active .ts-mobile-nav__passport-bubble {
+  transform: scale(0.92);
+}
+
+/* =========================================================
+   10. BUTTONS & UI CONTROLS
+   ========================================================= */
+.ts-btn {
+  height: 48px;
+  padding: 0 20px;
+  border-radius: var(--r-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: none;
+  text-decoration: none;
+}
+
+.ts-btn:active {
+  transform: scale(0.98);
+}
+
+.ts-btn--primary {
+  background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.6), 0 8px 20px rgba(255, 64, 129, 0.35);
+}
+
+.ts-btn--secondary {
+  background: var(--ga);
+  color: var(--ink);
+  border: 1px solid var(--bd);
+  box-shadow: 0 4px 14px var(--sh);
+}
+
+.ts-btn--ghost {
+  background: transparent;
+  color: var(--ink2);
+  border: 1px solid var(--bd);
+}
+
+.ts-btn--full {
+  width: 100%;
+}
+
+.ts-btn--disabled, .ts-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* =========================================================
+   11. QUIZ QUESTION SCREEN & TIMER
+   ========================================================= */
+.ts-quiz-booth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ts-quiz-booth-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ts-quiz-count-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink2);
+}
+
+.ts-quiz-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Progress bar inside Quiz */
+.ts-progress-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--trk);
+  overflow: hidden;
+}
+
+.ts-progress-bar__fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  transition: width 300ms ease;
+}
+
+/* Timer */
+.ts-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.ts-timer__icon-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.ts-timer__content {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.ts-timer__value {
+  font-variant-numeric: tabular-nums;
+}
+
+.ts-timer__unit {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink2);
+}
+
+.ts-timer--warning {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.ts-timer--danger {
+  border-color: #FF4081;
+  color: #FF4081;
+}
+
+/* Question Card */
+.ts-question-card {
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.ts-question-card__category {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ts-question-card__text {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+}
+
+.ts-question-card__options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-option {
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--ga), var(--gb));
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-inner);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.35;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  box-sizing: border-box;
+}
+
+.ts-option:active {
+  transform: scale(0.98);
+}
+
+.ts-option--selected {
+  border: 2px solid var(--accent-b) !important;
+  box-shadow: 0 0 16px rgba(255, 64, 129, 0.35);
+}
+
+.ts-option--correct {
+  border: 2px solid var(--okbd) !important;
+  background: var(--okbg) !important;
+  color: var(--ok) !important;
+}
+
+.ts-option--incorrect {
+  border: 2px solid var(--error-bd) !important;
+  background: var(--error-bg) !important;
+  color: #FFAEC0 !important;
+}
+
+.ts-option__letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.ts-option__text {
+  flex: 1;
+}
+
+.ts-option__radio-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--accent-b);
+}
+
+.ts-option__radio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bd);
+}
+
+.ts-quiz-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.ts-quiz-actions .ts-btn {
+  flex: 1;
+}
+
+/* =========================================================
+   12. RESULTS & ALREADY PLAYED SCREENS
+   ========================================================= */
+.ts-results-booth-pill,
+.ts-restriction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.ts-already-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  margin: 0 auto 16px auto;
+}
+
+.ts-score-card,
+.ts-already-summary {
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.ts-score-card__headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ts-score-card__score {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.ts-score-card__percentage {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.ts-score-card__time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink2);
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.ts-score-card__time-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ts-score-card__breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ts-score-card__row,
+.ts-already-summary__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink2);
+}
+
+.ts-score-card__value,
+.ts-already-summary__value {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ts-score-card__value--correct,
+.ts-result-value--correct {
+  color: var(--ok);
+}
+
+.ts-score-card__value--incorrect,
+.ts-result-value--incorrect {
+  color: #FFAEC0;
+}
+
+.ts-score-card__message {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px 0;
+}
+
+.ts-score-card__disclaimer {
+  font-size: 11px;
+  color: var(--ink2);
+  margin: 0;
+}
+
+/* Milestone Card */
+.ts-milestone-card {
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ts-milestone-icon {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.ts-milestone-card--winner .ts-milestone-icon {
+  color: var(--ok);
+}
+
+.ts-milestone-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 4px 0;
+}
+
+.ts-milestone-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink2);
+  margin: 0;
+}
+
+.ts-results-actions {
+  margin-top: 16px;
+}
+
+/* =========================================================
+   13. TOPICS SELECTION & ROTATION
+   ========================================================= */
+.ts-topics-header {
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.ts-topics-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.ts-topics-rotation-banner {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ts-rotation-icon {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.ts-rotation-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin: 0 0 4px 0;
+}
+
+.ts-rotation-desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink2);
+  margin: 0;
+}
+
+.ts-topics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ts-topic-card {
+  padding: 16px;
+  border-radius: var(--r-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-topic-card__header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ts-topic-card__index {
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.ts-topic-card__count {
+  color: var(--ink2);
+}
+
+.ts-topic-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 6px 0;
+}
+
+.ts-topic-card__desc {
+  font-size: 13px;
+  color: var(--ink2);
+  margin: 0;
+}
+
+/* =========================================================
+   14. REGISTRATION FORM (ParticipantDetails)
+   ========================================================= */
+.ts-page--participant .ts-page__container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ts-participant-booth-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.ts-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ts-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-field__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+.ts-field__required {
+  color: var(--accent-b);
+}
+
+.ts-field__input {
+  height: 52px;
+  padding: 0 16px;
+  background: rgba(14, 22, 50, 0.65);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-inner);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  box-sizing: border-box;
+}
+
+.ts-field__input:focus {
+  outline: none;
+  border-color: var(--accent-b);
+  box-shadow: 0 0 12px rgba(255, 64, 129, 0.3);
+}
+
+.ts-field__input--error {
+  border-color: var(--error-bd);
+}
+
+.ts-field__error {
+  font-size: 12px;
+  color: #FFAEC0;
+  margin-top: 4px;
+}
+
+.ts-form__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ts-form__actions .ts-btn {
+  flex: 1;
+}
+
+/* =========================================================
+   15. MODALS & TOASTS
+   ========================================================= */
+.ts-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 20, 0.75);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.ts-modal-card {
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.ts-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ts-modal-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ts-modal-header__icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.ts-modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ts-modal-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ga);
+  border: 1px solid var(--bd);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ts-modal-content {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+.ts-modal-content h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 16px 0 6px 0;
+}
+
+.ts-modal-content ul {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.ts-modal-content li {
+  margin-bottom: 6px;
+}
+
+/* Scanner Modal */
+.ts-scanner-modal {
+  padding: 20px;
+  max-width: 480px;
+}
+
+.ts-scanner-viewport {
+  width: 100%;
+  border-radius: var(--r-inner);
+  overflow: hidden;
+  background: #000;
+  margin: 14px 0;
+}
+
+.ts-scanner-toast {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top));
+  left: 16px;
+  right: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+  z-index: 110;
+  padding: 12px 16px;
+  border-radius: var(--r-inner);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(30, 15, 30, 0.95);
+  border: 1px solid var(--accent-b);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px var(--sh);
+}
+
+/* =========================================================
+   16. MOTION & ANIMATIONS
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  .ts-page {
+    animation: ts-fade-up 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .ts-hero-card {
+    animation: ts-fade-up 320ms 40ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .ts-info-cards {
+    animation: ts-fade-up 320ms 80ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .ts-showcase-section {
+    animation: ts-fade-up 320ms 120ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes ts-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

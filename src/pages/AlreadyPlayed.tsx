@@ -1,0 +1,131 @@
+import type { BoothResult, QuizResult } from '../types';
+import { Button } from '../components/Button';
+import { REQUIRED_BOOTHS_TO_WIN, TOTAL_BOOTHS } from '../data/boothsConfig';
+import { LockIcon, TrophyIcon, TargetIcon } from '../components/Icons';
+
+interface AlreadyPlayedProps {
+  boothResult: BoothResult | null;
+  overallResult: QuizResult | null;
+  completedCount: number;
+  completedAt: string | null;
+  onDone: () => void;
+  onExploreOtherBooths?: () => void;
+}
+
+export function AlreadyPlayed({
+  boothResult,
+  overallResult,
+  completedCount,
+  completedAt,
+  onDone,
+  onExploreOtherBooths,
+}: AlreadyPlayedProps) {
+  const result = boothResult ?? overallResult;
+  const isWinner = completedCount >= REQUIRED_BOOTHS_TO_WIN;
+  const remaining = Math.max(0, REQUIRED_BOOTHS_TO_WIN - completedCount);
+
+  return (
+    <div className="ts-page ts-page--already-played">
+      <div className="ts-page__container">
+        {/* Restriction Badge */}
+        <div className="ts-restriction-badge">
+          <LockIcon size={14} />
+          <span>ATTEMPT ALREADY RECORDED • RETAKE RESTRICTED</span>
+        </div>
+
+        <div className="ts-already-icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="3" />
+            <path d="M16 24l6 6 12-12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        <h1 className="ts-page__title ts-page__title--sm">
+          {boothResult ? `BOOTH ${boothResult.boothNumber} ALREADY COMPLETED` : 'CHALLENGE ALREADY COMPLETED'}
+        </h1>
+
+        <p className="ts-page__description">
+          {boothResult
+            ? `You have already submitted your answers for "${boothResult.boothTitle}". Each attendee is restricted to one attempt per booth to ensure summit leaderboard integrity.`
+            : 'You have already recorded an attempt for this challenge.'}
+        </p>
+
+        {result && (
+          <div className="ts-already-summary">
+            {boothResult && (
+              <div className="ts-already-summary__row">
+                <span>Booth Scanned</span>
+                <span className="ts-already-summary__value">
+                  Booth {boothResult.boothNumber}: {boothResult.boothTitle}
+                </span>
+              </div>
+            )}
+            <div className="ts-already-summary__row">
+              <span>Your Final Score</span>
+              <span className="ts-already-summary__value ts-highlight-score">
+                {result.score} / {result.totalQuestions} ({result.percentage}%)
+              </span>
+            </div>
+            <div className="ts-already-summary__row">
+              <span>Correct Answers</span>
+              <span className="ts-already-summary__value ts-result-value--correct">
+                {result.correctAnswers} of {result.totalQuestions}
+              </span>
+            </div>
+            {result.incorrectAnswers > 0 && (
+              <div className="ts-already-summary__row">
+                <span>Incorrect Answers</span>
+                <span className="ts-already-summary__value ts-result-value--incorrect">
+                  {result.incorrectAnswers}
+                </span>
+              </div>
+            )}
+            <div className="ts-already-summary__row">
+              <span>Time Taken</span>
+              <span className="ts-already-summary__value">{result.timeTakenSeconds} seconds</span>
+            </div>
+            {completedAt && (
+              <div className="ts-already-summary__row">
+                <span>Submitted At</span>
+                <span className="ts-already-summary__value">
+                  {new Date(completedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Milestone info */}
+        <div className={`ts-milestone-card ${isWinner ? 'ts-milestone-card--winner' : 'ts-milestone-card--progress'}`}>
+          <div className="ts-milestone-icon" aria-hidden="true">
+            {isWinner ? <TrophyIcon size={24} /> : <TargetIcon size={24} />}
+          </div>
+          <div className="ts-milestone-info">
+            <h3 className="ts-milestone-title">
+              {isWinner
+                ? `PASSPORT STATUS: WINNER (${completedCount}/${TOTAL_BOOTHS} BOOTHS)`
+                : `PASSPORT STATUS: ${completedCount} OF ${REQUIRED_BOOTHS_TO_WIN} COMPLETED`}
+            </h3>
+            <p className="ts-milestone-desc">
+              {isWinner
+                ? 'You have completed the required booths! Present your Passport at the summit helpdesk.'
+                : `Visit any of the other booths across the floor and scan their QR code to reach the 4-booth goal (needs ${remaining} more).`}
+            </p>
+          </div>
+        </div>
+
+        <div className="ts-already-actions">
+          <Button onClick={onDone} fullWidth>
+            OPEN MY SUMMIT PASSPORT & RESULTS
+          </Button>
+
+          {onExploreOtherBooths && (
+            <Button variant="secondary" onClick={onExploreOtherBooths} fullWidth>
+              EXPLORE REMAINING BOOTHS
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

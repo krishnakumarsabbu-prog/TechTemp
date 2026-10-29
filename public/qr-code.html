@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#B3192B" />
+  <meta name="description" content="Official QR Code Standees for Technology Summit 2026 — 9 Booth Challenge" />
+  <title>9-Booth QR Code Center — Technology Summit 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand-red: #B3192B;
+      --brand-red-dark: #8A1320;
+      --brand-red-light: #D63B4E;
+      --gold: #F7C948;
+      --gold-dark: #D4A317;
+      --bg-dark: #0D0F12;
+      --card-bg: rgba(22, 25, 32, 0.94);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text-white: #FFFFFF;
+      --text-muted: #9BA3AF;
+      --text-dark: #1A1A1F;
+      --shadow-standee: 0 24px 60px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(179, 25, 43, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at top center, #260A0F 0%, #120508 35%, #0B0C10 100%);
+      color: var(--text-white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 32px 16px;
+      line-height: 1.5;
+    }
+
+    .glow-sphere {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .glow-sphere-1 {
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: var(--brand-red);
+    }
+    .glow-sphere-2 {
+      bottom: -80px;
+      right: 15%;
+      width: 320px;
+      height: 250px;
+      background: #79101d;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Top Selector Bar */
+    .organizer-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .organizer-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(247, 201, 72, 0.15);
+      border: 1px solid rgba(247, 201, 72, 0.4);
+      color: var(--gold);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .organizer-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    .organizer-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Booth Navigation Tabs */
+    .booths-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+      padding: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+    }
+
+    .tab-btn.active {
+      background: var(--brand-red);
+      color: #FFFFFF;
+      border-color: #E63946;
+      box-shadow: 0 4px 12px rgba(179, 25, 43, 0.4);
+    }
+
+    /* Standee Card */
+    .standee-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-standee);
+      backdrop-filter: blur(20px);
+      text-align: center;
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .card-header {
+      margin-bottom: 24px;
+    }
+
+    .booth-number-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: linear-gradient(90deg, #F7C948, #D4A317);
+      color: #1A1A1F;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* QR Frame */
+    .qr-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .qr-frame {
+      background: #FFFFFF;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      display: inline-block;
+    }
+
+    .qr-img {
+      width: 260px;
+      height: 260px;
+      display: block;
+      border-radius: 8px;
+    }
+
+    /* Steps */
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0 16px 0;
+      text-align: left;
+    }
+
+    .step-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .step-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: block;
+    }
+
+    .step-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .url-section {
+      margin-top: 12px;
+    }
+
+    .url-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .url-text {
+      color: var(--gold);
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-copy-chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, var(--brand-red) 0%, #D63B4E 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(179, 25, 43, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(179, 25, 43, 0.6);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      background: #1B7A3D;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 1000;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* Batch Print All Standees (Hidden by default, shown during print if batch mode) */
+    .batch-print-container {
+      display: none;
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .glow-sphere, .organizer-header, .booths-tabs, .controls-panel, .toast, .btn-copy-chip {
+        display: none !important;
+      }
+      .container {
+        max-width: 100% !important;
+      }
+      .standee-card {
+        border: 2px solid #000000 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        padding: 24px !important;
+        page-break-after: always;
+      }
+      .card-title {
+        color: #B3192B !important;
+      }
+      .card-subtitle {
+        color: #4A4A52 !important;
+      }
+      .step-item {
+        border: 1px solid #C8C8CE !important;
+        background: #FAFAFB !important;
+      }
+      .step-title {
+        color: #1A1A1F !important;
+      }
+      .step-desc {
+        color: #6A6A72 !important;
+      }
+      .url-chip {
+        border: 1px solid #C8C8CE !important;
+        background: #FAFAFB !important;
+      }
+      .url-text {
+        color: #B3192B !important;
+      }
+      .card-footer {
+        color: #6A6A72 !important;
+        border-top: 1px solid #E0E0E4 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-sphere glow-sphere-1"></div>
+  <div class="glow-sphere glow-sphere-2"></div>
+
+  <div class="container">
+    
+    <!-- Top Organizer Header -->
+    <div class="organizer-header">
+      <span class="organizer-badge">TECHNOLOGY SUMMIT 2026</span>
+      <h1 class="organizer-title">9 Booth QR Code & Standee Center</h1>
+      <p class="organizer-desc">Select a booth to preview, print standees, or download high-res QR codes</p>
+    </div>
+
+    <!-- Booth Tabs -->
+    <div class="booths-tabs" id="boothTabs"></div>
+
+    <!-- Printable Standee Card -->
+    <div class="standee-card" id="standeeCard">
+      <div class="card-header">
+        <div class="booth-number-tag" id="boothBadge">BOOTH 1 OF 9</div>
+        <h2 class="card-title" id="boothTitle">Generative AI & LLMs</h2>
+        <p class="card-subtitle" id="boothDesc">Explore neural architectures, prompt engineering, RAG, and frontier models.</p>
+      </div>
+
+      <!-- QR Code Body -->
+      <div class="qr-stage">
+        <div class="qr-frame">
+          <img src="qr-codes/booth-1.png" alt="Booth QR Code" class="qr-img" id="qrImage" />
+        </div>
+
+        <!-- 3 Steps -->
+        <div class="steps-row">
+          <div class="step-item">
+            <span class="step-icon">📷</span>
+            <span class="step-title">1. Scan</span>
+            <span class="step-desc">Scan QR with your phone camera</span>
+          </div>
+          <div class="step-item">
+            <span class="step-icon">✍️</span>
+            <span class="step-title">2. Register</span>
+            <span class="step-desc">Enter Name & EntID to link Passport</span>
+          </div>
+          <div class="step-item">
+            <span class="step-icon">🏆</span>
+            <span class="step-title">3. Win</span>
+            <span class="step-desc">Complete ≥ 4 booths to qualify!</span>
+          </div>
+        </div>
+
+        <!-- URL Chip -->
+        <div class="url-section">
+          <div class="url-chip">
+            <span>🔗</span>
+            <a href="https://innovation-showcase-2026.github.io/TechQUIZ/?booth=1" target="_blank" class="url-text" id="targetUrl">
+              https://innovation-showcase-2026.github.io/TechQUIZ/?booth=1
+            </a>
+            <button class="btn-copy-chip" onclick="copyCurrentUrl()">📋 Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <span>TECHSUMMIT_2026 • 5 QUESTIONS • 60 SECONDS</span>
+        <span>No app download required</span>
+      </div>
+    </div>
+
+    <!-- Control Toolbar -->
+    <div class="controls-panel">
+      <a href="https://innovation-showcase-2026.github.io/TechQUIZ/?booth=1" target="_blank" class="btn-primary" id="openAppBtn">
+        <span>🚀 Open Selected Booth Quiz in Browser</span>
+      </a>
+
+      <div class="btn-group">
+        <button class="btn-secondary" onclick="window.print()">
+          🖨️ Print Standee
+        </button>
+        <button class="btn-secondary" onclick="downloadCurrentPng()">
+          📥 Save PNG
+        </button>
+        <button class="btn-secondary" onclick="downloadCurrentSvg()">
+          🎨 Save SVG
+        </button>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-secondary" style="background: rgba(247, 201, 72, 0.15); border-color: #F7C948; color: #FFF3C4;" onclick="openPassportPreview()">
+          🏅 Preview Summit Passport
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast">
+    <span id="toastMsg">Action complete!</span>
+  </div>
+
+  <script>
+    const BASE_URL = "https://innovation-showcase-2026.github.io/TechQUIZ/";
+
+    const BOOTHS = [
+      { number: 1, title: 'Generative AI & LLMs', icon: '🤖', desc: 'Explore neural architectures, prompt engineering, RAG, and frontier models.' },
+      { number: 2, title: 'Cloud Native & Kubernetes', icon: '☁️', desc: 'Master microservices orchestration, auto-scaling, serverless, and mesh topologies.' },
+      { number: 3, title: 'Cybersecurity & Zero Trust', icon: '🛡️', desc: 'Verify every request, defend supply chains, and master cryptographic principles.' },
+      { number: 4, title: 'Data Engineering & Lakehouse', icon: '📊', desc: 'Tackle real-time streaming, vector stores, ACID transactions, and ELT pipelines.' },
+      { number: 5, title: 'DevOps, SRE & CI/CD', icon: '⚙️', desc: 'Accelerate continuous delivery, observability pillars, and error budget management.' },
+      { number: 6, title: 'Software Architecture & APIs', icon: '🏛️', desc: 'Design decoupled event-driven systems, resilient gateways, and scalable patterns.' },
+      { number: 7, title: 'IoT & Edge Computing', icon: '📡', desc: 'Harness low-latency computation, digital twins, and lightweight protocols.' },
+      { number: 8, title: 'Web3 & Distributed Ledgers', icon: '🔗', desc: 'Uncover smart contracts, decentralized state, rollups, and zero-knowledge proofs.' },
+      { number: 9, title: 'Quantum & Emerging Horizons', icon: '⚛️', desc: 'Leap into superposition, entanglement, quantum speedups, and future horizons.' }
+    ];
+
+    let currentBoothIndex = 0;
+
+    function renderTabs() {
+      const container = document.getElementById('boothTabs');
+      container.innerHTML = '';
+      BOOTHS.forEach((b, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${idx === currentBoothIndex ? 'active' : ''}`;
+        btn.innerHTML = `<span>${b.icon}</span> <span>Booth ${b.number}</span>`;
+        btn.onclick = () => selectBooth(idx);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectBooth(index) {
+      currentBoothIndex = index;
+      renderTabs();
+      const b = BOOTHS[index];
+      const targetUrl = `${BASE_URL}?booth=${b.number}`;
+
+      document.getElementById('boothBadge').textContent = `BOOTH ${b.number} OF 9`;
+      document.getElementById('boothTitle').textContent = b.title;
+      document.getElementById('boothDesc').textContent = b.desc;
+      document.getElementById('qrImage').src = `qr-codes/booth-${b.number}.png`;
+      document.getElementById('targetUrl').href = targetUrl;
+      document.getElementById('targetUrl').textContent = targetUrl;
+      document.getElementById('openAppBtn').href = targetUrl;
+      document.getElementById('openAppBtn').innerHTML = `<span>🚀 Open Booth ${b.number} Quiz in Browser</span>`;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function copyCurrentUrl() {
+      const b = BOOTHS[currentBoothIndex];
+      const url = `${BASE_URL}?booth=${b.number}`;
+      navigator.clipboard.writeText(url).then(() => {
+        showToast(`Booth ${b.number} URL copied!`);
+      });
+    }
+
+    function downloadCurrentPng() {
+      const b = BOOTHS[currentBoothIndex];
+      const link = document.createElement('a');
+      link.href = `qr-codes/booth-${b.number}.png`;
+      link.download = `technology-summit-booth-${b.number}.png`;
+      link.click();
+      showToast(`Booth ${b.number} PNG download started!`);
+    }
+
+    function downloadCurrentSvg() {
+      const b = BOOTHS[currentBoothIndex];
+      const link = document.createElement('a');
+      link.href = `qr-codes/booth-${b.number}.svg`;
+      link.download = `technology-summit-booth-${b.number}.svg`;
+      link.click();
+      showToast(`Booth ${b.number} SVG download started!`);
+    }
+
+    function openPassportPreview() {
+      window.open(BASE_URL, '_blank');
+    }
+
+    // Initialize
+    renderTabs();
+    selectBooth(0);
+  </script>
+</body>
+</html>
