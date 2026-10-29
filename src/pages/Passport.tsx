@@ -116,16 +116,6 @@ export function Passport({
               <span className="ts-passport-user-email">{participant.email || participant.entId}</span>
             )}
           </div>
-          {onEditProfile && (
-            <button
-              type="button"
-              className="ts-passport-edit-btn"
-              onClick={onEditProfile}
-              title="Update registration details"
-            >
-              <span>Edit</span>
-            </button>
-          )}
         </div>
 
         {/* 2. Challenge progress card */}

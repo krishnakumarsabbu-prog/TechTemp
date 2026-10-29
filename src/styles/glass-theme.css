@@ -2048,3 +2048,72 @@ html, body {
 .ts-error-message { color: #bd3753; }
 
 @media (min-width: 768px) { .ts-layout__main { max-width: 720px; } .ts-page { padding-left: 24px; padding-right: 24px; } }
+
+/* Scanner overlay */
+.ts-scanner-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(42, 50, 91, .26);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  animation: ts-overlay-in 220ms ease both;
+}
+
+.ts-scanner-modal {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: min(860px, calc(100dvh - 40px));
+  overflow: auto;
+  padding: 22px;
+  background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(246,239,255,.76));
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 28px;
+  box-shadow: 0 26px 80px rgba(52, 61, 112, .25), inset 0 1px 0 rgba(255,255,255,.95);
+  animation: ts-modal-in 280ms cubic-bezier(.16,1,.3,1) both;
+}
+
+.ts-scanner-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.ts-scanner-tag { display: block; color: #bf461a; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+.ts-scanner-title { margin: 0; color: var(--ink); font-size: clamp(21px, 5vw, 28px); line-height: 1.15; }
+.ts-scanner-close { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.95); border-radius: 50%; background: rgba(255,255,255,.68); color: var(--ink); cursor: pointer; transition: transform 180ms ease, background 180ms ease; }
+.ts-scanner-close:hover { background: #fff; transform: rotate(90deg) scale(1.05); }
+.ts-scanner-body { min-width: 0; }
+.ts-scanner-viewport-wrap { position: relative; overflow: hidden; min-height: 280px; border-radius: 20px; background: #17203a; box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
+.ts-scanner-video-container { width: 100%; min-height: 280px; }
+.ts-scanner-video-container video { display: block; width: 100% !important; height: auto !important; object-fit: cover; }
+.ts-scanner-video-container img { max-width: 100%; }
+.ts-scanner-overlay { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.ts-scanner-target-box { position: relative; width: min(68vw, 270px); aspect-ratio: 1; border: 1px solid rgba(255,255,255,.25); border-radius: 14px; box-shadow: 0 0 0 999px rgba(8, 14, 34, .18); }
+.ts-scanner-corner { position: absolute; width: 34px; height: 34px; border-color: #fff; border-style: solid; filter: drop-shadow(0 0 7px rgba(255,255,255,.55)); }
+.ts-scanner-corner--tl { top: -2px; left: -2px; border-width: 4px 0 0 4px; border-radius: 10px 0 0 0; }
+.ts-scanner-corner--tr { top: -2px; right: -2px; border-width: 4px 4px 0 0; border-radius: 0 10px 0 0; }
+.ts-scanner-corner--bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-radius: 0 0 0 10px; }
+.ts-scanner-corner--br { right: -2px; bottom: -2px; border-width: 0 4px 4px 0; border-radius: 0 0 10px 0; }
+.ts-scanner-laser { position: absolute; left: 10px; right: 10px; top: 50%; height: 2px; background: linear-gradient(90deg, transparent, #ff4f89, transparent); box-shadow: 0 0 12px #ff4f89; animation: ts-scan-line 2s ease-in-out infinite; }
+.ts-scanner-status-overlay { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 20px; text-align: center; color: #fff; background: rgba(15, 24, 54, .7); font-weight: 700; }
+.ts-scanner-status-overlay--error, .ts-scanner-status-overlay--mismatch { background: rgba(32, 35, 68, .84); }
+.ts-scanner-spinner { width: 34px; height: 34px; border: 3px solid rgba(255,255,255,.35); border-top-color: #ff6a92; border-radius: 50%; animation: ts-spin .8s linear infinite; }
+.ts-scanner-instruction { margin: 14px 0; color: var(--ink2); font-size: 13px; line-height: 1.5; }
+.ts-scanner-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.ts-scanner-tool-btn, .ts-scanner-cancel-btn, .ts-scanner-retry-btn { min-height: 38px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.92); border-radius: 999px; background: rgba(255,255,255,.68); color: var(--ink); font: 700 12px var(--font); cursor: pointer; transition: transform 180ms ease, background 180ms ease; }
+.ts-scanner-tool-btn:hover, .ts-scanner-cancel-btn:hover, .ts-scanner-retry-btn:hover { background: #fff; transform: translateY(-1px); }
+.ts-scanner-footer { display: flex; justify-content: flex-end; margin-top: 14px; }
+.ts-scanner-cancel-btn { background: linear-gradient(135deg, #ff934c, #ff3c7e); color: #fff; border-color: rgba(255,255,255,.8); }
+.ts-scanner-camera-picker { display: flex; align-items: center; gap: 6px; color: var(--ink2); font-size: 12px; }
+.ts-scanner-camera-picker select { min-height: 38px; width: auto; padding: 6px 28px 6px 10px; }
+.ts-scanner-err-text, .ts-scanner-mismatch-desc, .ts-scanner-mismatch-instruction { max-width: 360px; margin: 0; line-height: 1.45; }
+.ts-scanner-mismatch-title { color: #ff9ab5; font-size: 14px; font-weight: 800; letter-spacing: .08em; }
+
+@keyframes ts-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ts-modal-in { from { opacity: 0; transform: translateY(16px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes ts-scan-line { 0%, 100% { transform: translateY(-108px); opacity: .45; } 50% { transform: translateY(108px); opacity: 1; } }
+@keyframes ts-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-scanner-backdrop, .ts-scanner-modal, .ts-scanner-laser { animation: none; }
+}
