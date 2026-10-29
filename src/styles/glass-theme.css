@@ -2117,3 +2117,102 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .ts-scanner-backdrop, .ts-scanner-modal, .ts-scanner-laser { animation: none; }
 }
+
+/* Premium black glass mode */
+:root {
+  --bg: #05060b;
+  --ink: #f7f8ff;
+  --ink2: #c4cbe7;
+  --gold: #ffb17b;
+  --ga: rgba(255,255,255,.13);
+  --gb: rgba(255,255,255,.045);
+  --bd: rgba(255,255,255,.25);
+  --sh: rgba(0,0,0,.48);
+  --nav: rgba(18,23,47,.76);
+  --trk: rgba(255,255,255,.16);
+  --ok: #8affe0;
+  --okbg: rgba(85,224,190,.2);
+  --okbd: rgba(117,255,220,.62);
+  --text-primary: #f7f8ff;
+  --text-secondary: #c4cbe7;
+}
+
+html, body {
+  background:
+    radial-gradient(circle at 88% -8%, rgba(75,101,211,.42), transparent 34%),
+    radial-gradient(circle at 2% 52%, rgba(143,38,110,.28), transparent 38%),
+    radial-gradient(circle at 92% 100%, rgba(31,142,133,.25), transparent 32%),
+    #05060b;
+}
+
+.ts-page { padding-top: 14px; padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+.ts-page--welcome { padding-top: 6px; }
+.ts-event-banner { padding: 8px; margin-bottom: 10px; background: rgba(255,255,255,.09); }
+.ts-event-banner__image { border-radius: 12px; }
+.ts-hero-card { margin-bottom: 10px; padding: 16px; background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.055)); }
+.ts-info-cards { margin-bottom: 12px; gap: 8px; }
+.ts-showcase-section { margin-bottom: 10px; }
+.ts-showcase-section__heading-row { margin-bottom: 10px; }
+
+.glass, .ts-glass, .ts-event-banner, .ts-hero-card, .ts-info-card, .ts-showcase-booth-card,
+.ts-qualification-banner, .ts-passport-stats-grid, .ts-booth-card, .ts-question-card,
+.ts-score-card, .ts-milestone-card, .ts-already-summary, .ts-modal-card, .ts-scanner-modal,
+.ts-participant-card, .ts-topic-card, .ts-topics-header, .ts-topics-rotation-banner,
+.ts-sync-destination-card {
+  background: linear-gradient(135deg, rgba(255,255,255,.145), rgba(255,255,255,.045));
+  border-color: rgba(255,255,255,.26);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.28), 0 14px 32px rgba(0,0,0,.3);
+}
+
+.ts-header { background: rgba(5,6,11,.26); border-bottom-color: rgba(255,255,255,.14); box-shadow: 0 5px 22px rgba(0,0,0,.2); }
+.ts-header__badge, .ts-header__passport-btn, .ts-passport-edit-btn, .ts-passport-scan-qr-btn,
+.ts-showcase-view-all, .ts-btn--secondary, .ts-mobile-nav__item, .ts-qualification-pill, .ts-timer {
+  color: var(--ink);
+}
+.ts-header__badge, .ts-header__passport-btn, .ts-passport-edit-btn, .ts-passport-scan-qr-btn,
+.ts-showcase-view-all, .ts-qualification-pill, .ts-timer { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
+.ts-header__passport-btn:hover, .ts-passport-edit-btn:hover, .ts-passport-scan-qr-btn:hover { background: rgba(255,255,255,.18); color: #fff; }
+
+.ts-page__title, .ts-page__title--sm, .ts-hero-title, .ts-showcase-section__title, .ts-passport-user-name,
+.ts-qualification-title, .ts-matrix-title, .ts-topic-card__title, .ts-question-card__text,
+.ts-score-card__message, .ts-milestone-title, .ts-modal-title, .ts-booth-card__title,
+.ts-showcase-booth-card__title, .ts-option__text, .ts-info-card__value, .ts-stat-card__number { color: var(--ink); }
+.ts-page__description, .ts-topic-card__desc, .ts-rotation-desc, .ts-milestone-desc, .ts-page__footer,
+.ts-matrix-subtitle, .ts-passport-user-email, .ts-quiz-count-pill, .ts-score-card__disclaimer,
+.ts-already-summary__row, .ts-modal-content, .ts-booth-card__desc, .ts-showcase-booth-card__desc,
+.ts-info-card__label, .ts-stat-card__label { color: var(--ink2); }
+.ts-hero-eyebrow, .ts-showcase-view-all, .ts-header__badge, .ts-qualification-pill, .ts-topic-card__index,
+.ts-topics-badge, .ts-quiz-booth-pill, .ts-results-booth-pill, .ts-restriction-badge { color: var(--gold); }
+
+.ts-qualification-banner--progress, .ts-score-card, .ts-milestone-card--progress { background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border-color: rgba(255,255,255,.25); }
+.ts-qualification-banner--winner, .ts-milestone-card--winner { background: linear-gradient(135deg, rgba(255,168,95,.18), rgba(255,54,125,.2)); border-color: rgba(255,145,171,.62); }
+.ts-qualification-desc { color: var(--ink2); }
+.ts-pill-todo { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: var(--ink2); }
+.ts-pill-done { color: var(--ok); background: var(--okbg); border-color: var(--okbd); }
+.ts-option { background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.045)); border-color: rgba(255,255,255,.22); box-shadow: 0 6px 16px rgba(0,0,0,.24); }
+.ts-option:hover { background: rgba(255,255,255,.2); border-color: #ff709d; }
+.ts-option--selected { border-color: #ff3c7e !important; background: rgba(255,60,126,.18); box-shadow: 0 0 0 2px rgba(255,60,126,.2), 0 8px 20px rgba(0,0,0,.25); }
+.ts-option__letter { color: var(--gold); background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.22); }
+.ts-option__radio-indicator { color: #ff709d; }
+.ts-field__label { color: var(--ink); }
+.ts-field__input { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.24); color: var(--ink); box-shadow: inset 0 1px 4px rgba(0,0,0,.22); }
+.ts-field__input::placeholder { color: #8f97b7; }
+.ts-field__input:focus { background: rgba(255,255,255,.16); color: #fff; }
+.ts-modal-overlay { background: rgba(0,0,0,.7); }
+.ts-modal-close-btn, .ts-modal-header__icon-badge { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); color: var(--ink); }
+
+.ts-celebration { position: fixed; inset: 0; z-index: 300; pointer-events: none; overflow: hidden; display: grid; place-items: center; }
+.ts-celebration__backdrop { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,72,133,.18), rgba(2,3,8,.7) 68%); animation: ts-celebration-glow 1.1s ease-out both; }
+.ts-celebration__message { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 22px 28px; border: 1px solid rgba(255,255,255,.3); border-radius: 24px; background: rgba(18,21,43,.78); box-shadow: 0 18px 50px rgba(0,0,0,.4); color: #fff; text-align: center; animation: ts-celebration-pop 600ms cubic-bezier(.16,1,.3,1) both; }
+.ts-celebration__eyebrow { color: #ffb17b; font-size: 11px; font-weight: 800; letter-spacing: .14em; }
+.ts-celebration__message strong { font-size: clamp(22px, 6vw, 32px); }
+.ts-celebration__message span:last-child { color: #c4cbe7; font-size: 13px; }
+.ts-confetti { position: absolute; inset: 0; }
+.ts-confetti__piece { position: absolute; left: var(--confetti-x); top: -8%; width: 10px; height: 18px; border-radius: 3px; background: var(--confetti-color); opacity: 0; animation: ts-confetti-fall var(--confetti-duration) var(--confetti-delay) ease-in forwards; transform: rotate(var(--confetti-rotate)); }
+@keyframes ts-celebration-glow { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ts-celebration-pop { from { opacity: 0; transform: scale(.82) translateY(14px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes ts-confetti-fall { 0% { opacity: 0; transform: translate3d(0, -10vh, 0) rotate(0); } 10% { opacity: 1; } 100% { opacity: 0; transform: translate3d(12vw, 118vh, 0) rotate(680deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-celebration__backdrop, .ts-celebration__message, .ts-confetti__piece { animation: none; }
+}

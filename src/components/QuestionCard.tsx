@@ -11,6 +11,7 @@ import {
   RocketIcon,
   SparklesIcon,
 } from './Icons';
+import { playAnswerSound } from '../utils/qrHelper';
 
 interface QuestionCardProps {
   question: QuizQuestion;
@@ -56,7 +57,10 @@ export function QuestionCard({ question, selectedIndex, onSelect }: QuestionCard
               role="radio"
               aria-checked={selected}
               className={`ts-option ${selected ? 'ts-option--selected' : ''}`}
-              onClick={() => onSelect(idx)}
+              onClick={() => {
+                playAnswerSound();
+                onSelect(idx);
+              }}
             >
               <span className="ts-option__letter" aria-hidden="true">
                 {LETTERS[idx]}

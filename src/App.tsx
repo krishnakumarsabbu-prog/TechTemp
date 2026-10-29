@@ -3,6 +3,7 @@ import type { AppStage, Participant, QuizState, QuizResult, BoothConfig, BoothRe
 import { Header } from './components/Header';
 import { Layout } from './components/Layout';
 import { Button } from './components/Button';
+import { ConfettiCelebration } from './components/ConfettiCelebration';
 const Welcome = lazy(() => import('./pages/Welcome').then((module) => ({ default: module.Welcome })));
 const ParticipantDetails = lazy(() => import('./pages/ParticipantDetails').then((module) => ({ default: module.ParticipantDetails })));
 const TopicSelection = lazy(() => import('./pages/TopicSelection').then((module) => ({ default: module.TopicSelection })));
@@ -57,6 +58,7 @@ export default function App() {
   const [testMode, setTestMode] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [isFirebaseModalOpen, setIsFirebaseModalOpen] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
     if (!participant?.email) return;
@@ -445,6 +447,9 @@ export default function App() {
       setCurrentBoothResult(newBoothResult);
 
       const completedCount = Object.keys(updatedBoothResults).length;
+      if (completedCount >= REQUIRED_BOOTHS_TO_WIN) {
+        setShowCelebration(true);
+      }
 
       // Submit to Firebase Firestore database
       try {
@@ -526,6 +531,7 @@ export default function App() {
 
   return (
     <>
+      {showCelebration && <ConfettiCelebration onComplete={() => setShowCelebration(false)} />}
       {(stage !== 'WELCOME' && stage !== 'PASSPORT' || loadError) && (
         <Header
           completedCount={completedCount}
